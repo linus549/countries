@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+      integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+      crossorigin=""
+    />
+
+    <link rel="stylesheet" href="./index.css" />
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+      integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+      crossorigin=""
+    ></script>
+
+    <script type="module" src="./js/controller.js"></script>
+    <title>Countries</title>
+  </head>
+
+  <body>
+    <div class="app">
+      <div class="autocomplete">
+        <input
+          class="box autocomplete__input"
+          placeholder="Find countries"
+          autocomplete="off"
+          aria-label="Find countries"
+        />
+
+        <button type="button" class="autocomplete__close" tabindex="-1" hidden>
+          ×
+        </button>
+
+        <ol class="autocomplete__results" hidden></ol>
+      </div>
+
+      <div class="tabs">
+        <div class="tabs__tab-panels">
+          <div class="tabs__tab-panel tabs__info-tab-panel" data-tabs-index="0">
+            <div class="info">
+              <div class="box help">
+                <div class="help__icon-wrapper">
+                  <svg
+                    class="help__icon"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M4.475 5.458c-.284 0-.514-.237-.47-.517C4.28 3.24 5.576 2 7.825 2c2.25 0 3.767 1.36 3.767 3.215 0 1.344-.665 2.288-1.79 2.973-1.1.659-1.414 1.118-1.414 2.01v.03a.5.5 0 0 1-.5.5h-.77a.5.5 0 0 1-.5-.495l-.003-.2c-.043-1.221.477-2.001 1.645-2.712 1.03-.632 1.397-1.135 1.397-2.028 0-.979-.758-1.698-1.926-1.698-1.009 0-1.71.529-1.938 1.402-.066.254-.278.461-.54.461h-.777ZM7.496 14c.622 0 1.095-.474 1.095-1.09 0-.618-.473-1.092-1.095-1.092-.606 0-1.087.474-1.087 1.091S6.89 14 7.496 14Z"
+                    />
+                  </svg>
+                </div>
+
+                <p class="help__text">
+                  Find countries by name in the search field, or by clicking on
+                  the map.
+                </p>
+              </div>
+
+              <div class="box country" hidden>
+                <img src="./img/placeholder.png" alt="" class="country__flag" />
+
+                <div class="country__text-container">
+                  <h2 class="country__name"></h2>
+                  <h3 class="country__region"></h3>
+
+                  <div class="country__detail">
+                    <span class="bold">Population: </span>
+                    <span class="country__population"></span>
+                  </div>
+
+                  <div class="country__detail">
+                    <span class="bold">Language: </span>
+                    <span class="country__language"></span>
+                  </div>
+
+                  <div class="country__detail">
+                    <span class="bold">Currency: </span>
+                    <span class="country__currency"></span>
+                  </div>
+
+                  <div class="country__detail">
+                    <span class="bold">Capital: </span>
+                    <span class="country__capital"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="tabs__tab-panel tabs__tab-panel--grow"
+            data-tabs-index="1"
+          >
+            <div id="map"></div>
+          </div>
+        </div>
+
+        <div class="tabs__tab-list">
+          <button
+            type="button"
+            class="tabs__tab tabs__tab--active"
+            data-tabs-index="0"
+          >
+            Info
+          </button>
+
+          <button type="button" class="tabs__tab" data-tabs-index="1">
+            Map
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay">
+      <div class="overlay__backdrop"></div>
+
+      <div class="loader">
+        <div class="box loader__panel" tabindex="-1">
+          <div class="spinner" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+
+          <div class="loader__text-container">
+            <h2 class="loader__title">Fetching data...</h2>
+
+            <p class="loader__attempts">
+              Attempt <span class="loader__current-attempt"></span> of
+              <span class="loader__max-attempts"></span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="dialog">
+        <div
+          class="box dialog__panel"
+          role="dialog"
+          aria-labelledby="dialog-title"
+          aria-dialog="true"
+        >
+          <div class="dialog__text-container">
+            <h2 id="dialog-title" class="dialog__title"></h2>
+            <p class="dialog__status"></p>
+            <div class="dialog__note"></div>
+          </div>
+
+          <div class="dialog__button-container">
+            <button type="button" class="btn btn--primary dialog__btn-retry">
+              Try Again
+            </button>
+            <button
+              type="button"
+              class="btn btn--secondary dialog__btn-dismiss"
+            >
+              Dismiss
+            </button>
+          </div>
+
+          <button type="button" class="dialog__close">×</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
