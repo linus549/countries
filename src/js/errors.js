@@ -6,6 +6,13 @@ export class ResponseNotOkError extends Error {
   }
 }
 
+export class APIBusyError extends Error {
+  constructor() {
+    super();
+    this.name = "APIBusyError";
+  }
+}
+
 export class NoCountryFoundError extends Error {
   constructor() {
     super();

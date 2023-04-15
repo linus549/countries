@@ -1,5 +1,6 @@
 export const TILES_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 export const ATTRIBUTION = `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors`;
+export const API_BUSY_ERROR = "Throttled! See geocode.xyz/pricing";
 export const LOADER_MIN_DURATION = 1000;
 export const FETCH_TIMEOUT = 10000;
 export const FETCH_AUTO_ATTEMPT_DELAY = 1000;

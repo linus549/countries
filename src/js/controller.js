@@ -1,5 +1,9 @@
 import { timer, fetchAlpha2Code } from "./helpers";
-import { ResponseNotOkError, NoCountryFoundError } from "./errors";
+import {
+  ResponseNotOkError,
+  NoCountryFoundError,
+  APIBusyError,
+} from "./errors";
 import * as autocompleteView from "./views/autocompleteView";
 import * as countryView from "./views/countryView";
 import * as dialogView from "./views/dialogView";
@@ -72,18 +76,16 @@ async function controlFetchData() {
     resetErrorMessage();
 
     if (error instanceof ResponseNotOkError) {
-      if (error.response.status === 403) {
-        // API busy. Wait and try again.
-        if (state.currentFetchAttempt < MAX_FETCH_ATTEMPTS) {
-          state.currentFetchAttempt++;
-          setTimeout(controlFetchData, FETCH_AUTO_ATTEMPT_DELAY);
-          return;
-        } else {
-          state.errorMessage = { ...errorMessage.BUSY };
-        }
-      }
-
       state.errorMessage.status = `${error.response.status} ${error.response.statusText}`;
+    } else if (error instanceof APIBusyError) {
+      // wait and try again
+      if (state.currentFetchAttempt < MAX_FETCH_ATTEMPTS) {
+        state.currentFetchAttempt++;
+        setTimeout(controlFetchData, FETCH_AUTO_ATTEMPT_DELAY);
+        return;
+      } else {
+        state.errorMessage = { ...errorMessage.BUSY };
+      }
     } else if (error instanceof NoCountryFoundError) {
       state.errorMessage = {
         ...errorMessage.NO_COUNTRY_FOUND,

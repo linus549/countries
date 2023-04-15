@@ -1,5 +1,9 @@
-import { ResponseNotOkError, NoCountryFoundError } from "./errors";
-import { FETCH_TIMEOUT } from "./config";
+import {
+  ResponseNotOkError,
+  APIBusyError,
+  NoCountryFoundError,
+} from "./errors";
+import { API_BUSY_ERROR, FETCH_TIMEOUT } from "./config";
 
 export function showElements(...elements) {
   for (const element of elements) {
@@ -21,6 +25,10 @@ export async function fetchAlpha2Code(latlng) {
   const data = await fetchJSON(
     `https://geocode.xyz/${latlng.lat},${latlng.lng}?json=1`
   );
+
+  if (data.prov === API_BUSY_ERROR) {
+    throw new APIBusyError();
+  }
 
   if (data.prov === undefined) {
     throw new NoCountryFoundError();
