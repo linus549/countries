@@ -82,7 +82,6 @@ function updateResults() {
 
   for (const result of results) {
     const listItem = document.createElement("li");
-
     listItem.textContent = result.name;
     listItem.dataset.code = result.alpha2Code;
     listItem.classList.add("autocomplete__result");
