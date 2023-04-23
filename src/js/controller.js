@@ -75,10 +75,11 @@ async function controlFetchData() {
   } catch (error) {
     resetErrorMessage();
 
-    if (error instanceof ResponseNotOkError) {
-      state.errorMessage.status = `${error.response.status} ${error.response.statusText}`;
-    } else if (error instanceof APIBusyError) {
-      // wait and try again
+    if (
+      (error instanceof ResponseNotOkError && error.response.status === 403) ||
+      error instanceof APIBusyError
+    ) {
+      // API busy. Wait and try again
       if (state.currentFetchAttempt < MAX_FETCH_ATTEMPTS) {
         state.currentFetchAttempt++;
         setTimeout(controlFetchData, FETCH_AUTO_ATTEMPT_DELAY);
@@ -86,6 +87,8 @@ async function controlFetchData() {
       } else {
         state.errorMessage = { ...errorMessage.BUSY };
       }
+    } else if (error instanceof ResponseNotOkError) {
+      state.errorMessage.status = `${error.response.status} ${error.response.statusText}`;
     } else if (error instanceof NoCountryFoundError) {
       state.errorMessage = {
         ...errorMessage.NO_COUNTRY_FOUND,
