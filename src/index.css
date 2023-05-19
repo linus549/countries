@@ -175,7 +175,7 @@ button:not(:disabled),
 
 .app {
   isolation: isolate;
-  height: 100vh;
+  height: 100dvh;
   padding-top: var(--autocomplete-height);
 }
 
@@ -228,7 +228,7 @@ button:not(:disabled),
   left: var(--spacing-sm);
   right: var(--spacing-sm);
   max-height: calc(
-    100vh - var(--autocomplete-height) - var(--tab-list-height) -
+    100dvh - var(--autocomplete-height) - var(--tab-list-height) -
       var(--focus-outline-width) - var(--focus-outline-offset)
   );
   overflow: auto;
@@ -262,7 +262,7 @@ button:not(:disabled),
 
   .autocomplete__results {
     max-height: calc(
-      100vh - var(--autocomplete-height) - var(--focus-outline-width) -
+      100dvh - var(--autocomplete-height) - var(--focus-outline-width) -
         var(--focus-outline-offset)
     );
   }
@@ -297,8 +297,8 @@ button:not(:disabled),
   display: flex;
   position: fixed;
   z-index: 300;
-  width: 100vw;
-  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
   padding: var(--spacing-sm);
   visibility: hidden;
   transition: visibility 0.2s;
@@ -416,8 +416,8 @@ button:not(:disabled),
   display: flex;
   position: fixed;
   z-index: 200;
-  width: 100vw;
-  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
   padding: var(--spacing-sm);
   cursor: not-allowed;
   visibility: hidden;
@@ -475,8 +475,8 @@ button:not(:disabled),
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
   visibility: hidden;
   transition: visibility 0.2s;
 }
@@ -491,8 +491,8 @@ button:not(:disabled),
   z-index: 100;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
   background-color: #000;
   opacity: 0;
   transition: opacity 0.2s ease-in;
@@ -527,7 +527,7 @@ button:not(:disabled),
 }
 
 .tabs {
-  height: calc(100vh - var(--autocomplete-height));
+  height: calc(100dvh - var(--autocomplete-height));
   display: flex;
   flex-direction: column;
 }
@@ -556,7 +556,7 @@ button:not(:disabled),
 
 .tabs__tab-panel {
   flex-shrink: 0;
-  width: 100vw;
+  width: 100dvw;
   overflow: hidden auto;
   scroll-snap-align: start;
 }
@@ -571,7 +571,7 @@ button:not(:disabled),
 
 @media (min-width: 992px) {
   .tabs {
-    height: 100vh;
+    height: 100dvh;
   }
 
   .tabs__info-tab-panel {
