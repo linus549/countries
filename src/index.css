@@ -112,20 +112,13 @@ button:not(:disabled),
   cursor: pointer;
 }
 
-/* fallback if :focus-visible is not supported */
-*:focus {
-  outline: var(--focus-outline-width) solid var(--focus);
-  outline-offset: var(--focus-outline-offset);
-}
-
-/* if :focus-visible is supported */
-*:focus:not(:focus-visible) {
-  outline: none;
-}
-
 *:focus-visible {
   outline: var(--focus-outline-width) solid var(--focus);
   outline-offset: var(--focus-outline-offset);
+}
+
+*:focus:not(:focus-visible) {
+  outline: none;
 }
 
 ::selection {
@@ -452,11 +445,6 @@ button:not(:disabled),
   transition: opacity 0.2s ease-in, transform 0.2s ease-in;
 }
 
-.loader__panel:focus {
-  outline: none;
-}
-
-/* separate unsafe :focus-visible selector */
 .loader__panel:focus-visible {
   outline: none;
 }
