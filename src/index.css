@@ -24,8 +24,8 @@
 }
 
 html {
-  --autocomplete-height: 3.15rem;
-  --tab-list-height: 3.51rem;
+  --autocomplete-height: 3rem;
+  --tab-list-height: 3.40625rem;
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 0.75rem;
@@ -53,6 +53,7 @@ html {
 
 body {
   font-family: "Roboto", "Arial", sans-serif;
+  font-size: 1rem;
   line-height: 1.5;
   color: var(--text);
   background-color: var(--background);
