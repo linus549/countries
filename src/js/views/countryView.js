@@ -22,14 +22,8 @@ export function update(country) {
   regionElement.textContent = country.subregion;
   populationElement.textContent = formatPopulation(country.population);
   capitalElement.textContent = country.capital;
-
-  languageElement.textContent = country.languages
-    .map((language) => language.name)
-    .join(", ");
-
-  currencyElement.textContent = country.currencies
-    .map((currency) => currency.name)
-    .join(", ");
+  languageElement.textContent = country.languages.join(", ");
+  currencyElement.textContent = country.currencies.join(", ");
 }
 
 function formatPopulation(population) {

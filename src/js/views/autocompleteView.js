@@ -24,11 +24,10 @@ export function closeResults() {
 }
 
 function handleInput() {
-  results = countries.filter(({ normalizedName }) =>
-    normalizedName.includes(inputElement.value.toLowerCase().trim())
+  results = countries.filter(({ name }) =>
+    name.toLowerCase().includes(inputElement.value.toLowerCase().trim())
   );
 
-  results.sort(compareNormalizedName);
   updateResults();
 }
 
@@ -92,14 +91,4 @@ function updateResults() {
   showElements(closeElement, resultsElement);
   selectionIndex = 0;
   selectResult(selectionIndex);
-}
-
-function compareNormalizedName(a, b) {
-  if (a.normalizedName < b.normalizedName) {
-    return -1;
-  } else if (a.normalizedName > b.normalizedName) {
-    return 1;
-  }
-
-  return 0;
 }
